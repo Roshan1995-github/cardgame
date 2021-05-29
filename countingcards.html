@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Black Jack - 21</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<style type="text/css">
+		img{
+			width: 80px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div id="div1" class="box">
+			<button id="newGameBtn">NEW GAME</button>
+			<p>Cards left : <input type="number" id="remainingCardsNumber" readonly></p>
+		</div>
+		<div id="div2" class="box">
+			<img id="cardImg" src="">
+			
+		</div>
+		<div id="div3" class="box">
+			<button id="startBtn">Start Game</button>
+			<button id="randomNumbBtn">Random Card</button>
+			
+		</div>
+	</div>
+	<p>https://deckofcardsapi.com/</p>
+	<p>https://deckofcardsapi.com/static/img/KH.png</p>
+	<div class="box">
+		<p>Count : <input type="number" id="count" readonly></p>
+		
+	</div>
+	<div id="table" class="box">
+		<table class="table table-bordered">
+			<thead class="thead-light text-center">
+				<tr>
+					<th>Cards in Deck</th>
+					<th>Cards Drawn</th>
+					<th>Hearts</th>
+					<th>Spade</th>
+				</tr>
+			</thead>
+			<tbody class="text-center">
+				
+			</tbody>
+		</table>
+	</div>
+	<p id="display"></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--.............................................................................................................................................-->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script>
+	$("#startBtn").click(function(){
+		var oneDeck = ["AD", "2D", "3D", "4D", "5D", "6D", "7D", "8D", "9D", "0D", "JD", "QD", "KD", "AC", "2C", "3C", "4C", "5C", "6C", "7C", "8C", "9C", "0C", "JC", "QC", "KC", "AH", "2H", "3H", "4H", "5H", "6H", "7H", "8H", "9H", "0H", "JH", "QH", "KH", "AS", "2S", "3S", "4S", "5S", "6S", "7S", "8S", "9S", "0S", "JS", "QS", "KS"];
+		var diamonds = ["AD", "2D", "3D", "4D", "5D", "6D", "7D", "8D", "9D", "0D", "JD", "QD", "KD"];
+		var clubs = ["AC", "2C", "3C", "4C", "5C", "6C", "7C", "8C", "9C", "0C", "JC", "QC", "KC"];
+		var hearts = ["AH", "2H", "3H", "4H", "5H", "6H", "7H", "8H", "9H", "0H", "JH", "QH", "KH"];
+		var spades = ["AS", "2S", "3S", "4S", "5S", "6S", "7S", "8S", "9S", "0S", "JS", "QS", "KS"];
+		var value = ["ACE", "2", "3", "4", "5", "6", "7", "8", "9", "0", "JACK", "QUEEN", "KING"];
+		var suit = ["DIAMONDS", "CLUBS", "HEARTS", "SPADE"];
+		
+		var cardsDrawn = [];
+		var count = 0;
+
+		var remainingCardsNumber = oneDeck.length;
+		document.getElementById("remainingCardsNumber").value = remainingCardsNumber;
+		console.log(oneDeck.length)
+
+		
+		for(var j=0; j<oneDeck.length; j++){
+									
+			var cardName = oneDeck[j];
+			console.log(cardName)
+
+
+			var tBody = $("tbody");
+			var tRow = $("<tr>");
+			var tData1 = $("<td>");
+			var tData2 = $("<td>");
+			var tData3 = $("<td>");
+			var tData4 = $("<td>");
+			
+			tBody.append(tRow);
+			var addedData1 = tRow.append(tData1);
+			var addedData2 = tRow.append(tData2);
+			var addedData3 = tRow.append(tData3);
+			var addedData4 = tRow.append(tData4);
+
+			var image = "https://deckofcardsapi.com/static/img/"+ cardName +".png";
+			var imgData1 = addedData1.html($("<img>").attr("src", image));
+
+		}			
+
+
+		$("#randomNumbBtn").click(function(){
+				console.log("clicked random number button")
+
+				
+				var randomNumb = Math.floor(Math.random()*oneDeck.length);
+				console.log(randomNumb)
+				
+				var randomCard = oneDeck[randomNumb];
+				console.log(randomCard)
+				$("#cardImg").attr("src", "https://deckofcardsapi.com/static/img/"+ randomCard +".png")
+
+				oneDeck.splice(randomNumb, 1)
+				console.log(oneDeck)
+
+				cardsDrawn.splice(0, 0, randomCard)				
+				console.log(cardsDrawn)
+
+				remainingCardsNumber = oneDeck.length
+				document.getElementById("remainingCardsNumber").value = remainingCardsNumber;
+
+				var cardVal = randomCard.split("")[0];
+				console.log(cardVal)
+
+				var highCards = ["0", "J", "Q", "K", "A"];
+				var lowCards = ["2", "3", "4", "5", "6"];
+				console.log(highCards[1])
+
+				
+				if (cardVal == highCards[0] || cardVal == highCards[1] || cardVal == highCards[2] || cardVal == highCards[3] || cardVal == highCards[4]){
+					count = count - 1;
+				}
+				else if (cardVal == lowCards[0] || cardVal == lowCards[1] || cardVal == lowCards[2] || cardVal == lowCards[3] || cardVal == lowCards[4]){
+					count = count + 1;
+				}
+				else{
+					count = count + 0;
+				}
+				return document.getElementById("count").value = count;
+
+				
+		
+	})
+		
+		
+		console.log("clicked start button")
+	})
+
+
+
+
+
+
+
+
+
+
+
+	$("#nxtCardBtn").click(function(){
+		console.log("clicked next card button")
+		var hello = "hello"
+		var split = hello.split("")
+		console.log(split)
+		
+	})
+	
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
